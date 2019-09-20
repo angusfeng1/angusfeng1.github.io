@@ -2,22 +2,50 @@
 <html lang="en">
 
 <head>
-  <title>Page Title</title>
+  <title>Angus Tic Tac Toe</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <main>
-    <h1>My Website</h1>
-    <p>A website created by me.</p>
+  <main class="main">
+    <div class="header">
+      <h1>Tic Tac Toe</h1>
+      <p>A website that plays perfect Tic Tac Toe.</p>
+    </div>
+
+    <div class="controls">
+      <p>You're playing against a computer. Who starts?</p>
+      <form action="#">
+        <input class="checkbox" type="checkbox" name="playerX" value="X">Computer start</input>
+        <input class="checkbox" type="checkbox" name="playerO" value="O">You start</input>
+      </form>
+    </div>
+
+    <div class="gameBoard">
+      <div class="row">
+        <div id="0" class="bottom right">X</div>
+        <div id="1" class="bottom right">X</div>
+        <div id="2" class="bottom">X</div>
+      </div>
+      
+      <div class="row">
+        <div id="3" class="bottom right">X</div>
+        <div id="4" class="bottom right">X</div>
+        <div id="5" class="bottom">X</div>
+      </div>
+
+      <div class="row">
+        <div id="6" class="right">X</div>
+        <div id="7" class="right">X</div>
+        <div id="8" class="square">X</div>
+      </div>
+    </div>
+    
     <ul id="pokeList">
       <h2>Pokemon List</h2>
+      <h3>Here are some pokemon I like</h3>
     </ul>
   </main>
   <script src="test.js"></script>

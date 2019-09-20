@@ -1,0 +1,57 @@
+body {
+  background-color: white;
+  font-family: verdana, sans-serif;
+  color: rgb(48, 47, 47);
+}
+
+.main {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.header {
+  margin-top: 50px;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+.controls {
+  margin-top: 40px;
+}
+
+.checkBox {
+  margin-left: 40px; 
+}
+
+.gameBoard {
+  margin-top: 40px;
+}
+
+.row {
+  font-size: 0px;
+}
+
+.row > div {
+  display: inline-block;
+  font-size: 90px;
+/*   border: solid 1px white; */
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  vertical-align: top;
+  line-height: 150px;
+}
+
+.right {
+  border-right: solid 5px rgb(182, 224, 184);
+}
+
+.bottom {
+  border-bottom: solid 5px rgb(182, 224, 184);
+}
+
+.reset {
+  margin-top: 100px;
+}
