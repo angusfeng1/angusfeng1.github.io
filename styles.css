@@ -1,7 +1,7 @@
 body {
   background-color: white;
   font-family: verdana, sans-serif;
-  color: rgb(48, 47, 47);
+  color: rgb(41, 40, 40);
 }
 
 .main {
@@ -10,7 +10,7 @@ body {
 }
 
 .header {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 h1 {
@@ -18,13 +18,14 @@ h1 {
 }
 
 .controls {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .myButton {
   margin-top: 20px;
-  padding: 13px 32px;
+  padding: 13px 40px;
   font-size: 20px;
+  width: 15%
 }
 
 .checkBox {
@@ -32,7 +33,7 @@ h1 {
 }
 
 .gameBoard {
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
 .row {
