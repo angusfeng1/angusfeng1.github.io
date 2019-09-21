@@ -6,31 +6,14 @@ let winner = null;
 const winnerLine = document.querySelector("#winner");
 
 //Handles the player selection
-const playerXcheck = document.querySelector("#playerX");
-const playerOcheck = document.querySelector("#playerO");
-const resetButton = document.querySelector(".resetButton");
 function playerXclick() {
     resetAll();
     minifax();
-    if (playerXcheck.checked !== true) {
-        playerXcheck.checked = true;
-    }
-    playerOcheck.checked = false;
 }
 function playerOclick() {
     resetAll();
-    if (playerOcheck.checked !== true) {
-        playerOcheck.checked = true;
-    }
-    playerXcheck.checked = false;
 }
 
-//Reset Button
-/*
-resetButton.addEventListener("click", (event) => {
-    resetAll();
-});
-*/
 function resetAll() {
     for (const square of squares) {
         square.innerText = "";
@@ -61,11 +44,7 @@ function playGame(square) {
     
     if (gameStillGoing === true) {
         bestMove();
-        //minifax();
     }
-    console.log(evaluate(gameBoard));
-    //console.log(gameBoard);
-    
     
     if (gameStillGoing === false) {
         if (winner === "X" || winner === "O") {
@@ -200,7 +179,6 @@ function minimax(board, AIPlayer) {
             if (board[square] === 0) {
                 board[square] = "O";
                 best = Math.min(best, minimax(board, true));
-                //console.log(`comparing ${best}, ${minimax(board, true)}`);
                 board[square] = 0;
             }
         }
@@ -217,7 +195,6 @@ function bestMove() {
             gameBoard[square] = "X";
             let moveVal = minimax(gameBoard, false);
             gameBoard[square] = 0;
-            //console.log("square" + square + "gamescore: " + moveVal);
             if (moveVal > bestVal) {
                 bestMove = square;
                 bestVal = moveVal; 
@@ -228,7 +205,6 @@ function bestMove() {
     gameBoard[bestMove] = "X";
     squares[bestMove].innerText = "X";
     checkGameOver();
-    //console.log("best move is" + bestMove);
 }
 
 function minifax() {
