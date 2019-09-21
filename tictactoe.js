@@ -1,6 +1,6 @@
 let gameBoard = [0,0,0,0,0,0,0,0,0];
 
-let gameStillGoing = true;
+let gameStillGoing = false;
 let winner = null;
 
 const winnerLine = document.querySelector("#winner");
@@ -8,10 +8,12 @@ const winnerLine = document.querySelector("#winner");
 //Handles the player selection
 function playerXclick() {
     resetAll();
+    gameStillGoing = true;
     minifax();
 }
 function playerOclick() {
     resetAll();
+    gameStillGoing = true;
 }
 
 function resetAll() {
