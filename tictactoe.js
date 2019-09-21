@@ -1,25 +1,23 @@
-let board = [0,0,0,0,0,0,0,0];
+let gameBoard = [0,0,0,0,0,0,0,0,0];
 
 let gameStillGoing = true;
 let winner = null;
-let currentPlayer = null;
+
+const winnerLine = document.querySelector("#winner");
 
 //Handles the player selection
 const playerXcheck = document.querySelector("#playerX");
 const playerOcheck = document.querySelector("#playerO");
 const resetButton = document.querySelector(".resetButton");
 function playerXclick() {
-    currentPlayer = "X";
     resetAll();
-    minimax();
+    minifax();
     if (playerXcheck.checked !== true) {
-        console.log("ticked");
         playerXcheck.checked = true;
     }
     playerOcheck.checked = false;
 }
 function playerOclick() {
-    currentPlayer = "O"
     resetAll();
     if (playerOcheck.checked !== true) {
         playerOcheck.checked = true;
@@ -37,29 +35,39 @@ function resetAll() {
     for (const square of squares) {
         square.innerText = "";
     }
-    for (const i in board) {
-        board[i] = 0;
+    for (const i in gameBoard) {
+        gameBoard[i] = 0;
     }
+    winnerLine.innerText = "";
+    gameStillGoing = true;
+    winner = null;
 }
 
 const squares = document.querySelectorAll(".square");
 for (const square of squares) {
     square.addEventListener("click", (event) => {
-        playGame(square);
+        if (square.innerText === "" && gameStillGoing === true) {
+            playGame(square);
+        }
     });
 }
 
 function playGame(square) {
     if (square.innerText === "") {
         square.innerText = "O";
-        board[square.id] = "O";
+        gameBoard[square.id] = "O";
     }
     checkGameOver();
-    minimax();
+    
+    if (gameStillGoing === true) {
+        bestMove();
+        //minifax();
+    }
+    console.log(evaluate(gameBoard));
+    //console.log(gameBoard);
+    
     
     if (gameStillGoing === false) {
-        const winnerLine = document.querySelector("#winner");
-
         if (winner === "X" || winner === "O") {
             if (winner === "X") {
                 winnerLine.innerText = "You lost!";
@@ -79,9 +87,9 @@ function checkGameOver() {
 }
 
 function checkWinner() {
-    rowWinner = checkRows();
-    columnWinner = checkColumns();
-    diagonalWinner = checkDiagonals();
+    rowWinner = checkRows(gameBoard);
+    columnWinner = checkColumns(gameBoard);
+    diagonalWinner = checkDiagonals(gameBoard);
 
     if (rowWinner) {
         winner = rowWinner;
@@ -90,16 +98,17 @@ function checkWinner() {
     } else if (diagonalWinner) {
         winner = diagonalWinner;
     }
+
+    if (winner !== null) {
+        gameStillGoing = false;
+    }
 }
 
-function checkRows() {
+function checkRows(board) {
     const row1 = (board[0] === board[1] && board[1] === board[2] && board[0] != 0);
     const row2 = (board[3] === board[4] && board[4] === board[5] && board[3] != 0);
     const row3 = (board[6] === board[7] && board[7] === board[8] && board[6] != 0);
 
-    if (row1 || row2 || row3) {
-        gameStillGoing = false;
-    }
     if (row1) {
         return board[0];
     } else if (row2) {
@@ -110,14 +119,11 @@ function checkRows() {
     return;
 }
 
-function checkColumns() {
+function checkColumns(board) {
     const column1 = (board[0] === board[3] && board[3] === board[6] && board[0] != 0);
     const column2 = (board[1] === board[4] && board[4] === board[7] && board[1] != 0);
     const column3 = (board[2] === board[5] && board[5] === board[8] && board[2] != 0);
 
-    if (column1 || column2 || column3) {
-        gameStillGoing = false;
-    }
     if (column1) {
         return board[0];
     } else if (column2) {
@@ -128,13 +134,10 @@ function checkColumns() {
     return;
 }
 
-function checkDiagonals() {
+function checkDiagonals(board) {
     const diagonal1 = (board[0] === board[4] && board[4] === board[8] && board[0] != 0);
     const diagonal2 = (board[2] === board[4] && board[4] === board[6] && board[2] != 0);
 
-    if (diagonal1 || diagonal2) {
-        gameStillGoing = false;
-    }
     if (diagonal1) {
         return board[0];
     } else if (diagonal2) {
@@ -144,15 +147,94 @@ function checkDiagonals() {
 }
 
 function checkTie() {
-    if (!board.includes(0)) {
+    if (!gameBoard.includes(0)) {
         gameStillGoing = false;
+        return 1;
     }
 }
 
-function minimax() {
-    for (const square in board) {
-        if (board[square] === 0) {
-            board[square] = "X";
+function evaluate(board) {
+    if (checkRows(board) === "O") {
+        return -10
+    } else if (checkRows(board) === "X") {
+        return 10;
+    }
+
+    if (checkColumns(board) === "O") {
+        return -10
+    } else if (checkColumns(board) === "X") {
+        return 10;
+    }
+
+    if (checkDiagonals(board) === "O") {
+        return -10
+    } else if (checkDiagonals(board) === "X") {
+        return 10;
+    }
+
+    return 0;
+}
+
+function minimax(board, AIPlayer) {
+    let score = evaluate(board);
+    if (score !== 0) {
+        return score;
+    }
+    if (!board.includes(0)) {
+        return 0;
+    }
+
+    if (AIPlayer) {
+        let best = -1000;
+        for (const square in board) {
+            if (board[square] === 0) {
+                board[square] = "X";
+                best = Math.max(best, minimax(board, false));
+                board[square] = 0;
+            }
+        }
+        return best;
+    } else {
+        let best = 1000;
+        for (const square in board) {
+            if (board[square] === 0) {
+                board[square] = "O";
+                best = Math.min(best, minimax(board, true));
+                //console.log(`comparing ${best}, ${minimax(board, true)}`);
+                board[square] = 0;
+            }
+        }
+        return best;
+    }
+}
+
+function bestMove() {
+    let bestVal = -1000;
+    let bestMove = 0;
+
+    for (const square in gameBoard) {
+        if (gameBoard[square] === 0) {
+            gameBoard[square] = "X";
+            let moveVal = minimax(gameBoard, false);
+            gameBoard[square] = 0;
+            //console.log("square" + square + "gamescore: " + moveVal);
+            if (moveVal > bestVal) {
+                bestMove = square;
+                bestVal = moveVal; 
+            }
+        }
+    }
+
+    gameBoard[bestMove] = "X";
+    squares[bestMove].innerText = "X";
+    checkGameOver();
+    //console.log("best move is" + bestMove);
+}
+
+function minifax() {
+    for (const square in gameBoard) {
+        if (gameBoard[square] === 0) {
+            gameBoard[square] = "X";
             squares[square].innerText = "X";
             break;
         }
@@ -160,10 +242,7 @@ function minimax() {
     checkGameOver();
 }
 
-
-
-console.log("heyo");
-
+//console.log(Math.max(10, 100));
 /*
  # = id
  . = class
