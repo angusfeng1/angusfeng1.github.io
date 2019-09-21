@@ -18,7 +18,7 @@ function test() {
                 pokemon.innerText = JSON.name;
 
                 pokeList.appendChild(pokemon);
-                console.log(pokemon);
+                //console.log(pokemon);
             });
     }
 }

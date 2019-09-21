@@ -16,38 +16,41 @@
     </div>
 
     <div class="controls">
-      <p>You're playing against a computer. Who starts?</p>
-      <form action="#">
-        <input class="checkbox" type="checkbox" name="playerX" value="X">Computer start</input>
-        <input class="checkbox" type="checkbox" name="playerO" value="O">You start</input>
+      <p>You'll be playing against the computer. Who starts?</p>
+      <form id="playerForm">
+        <input class="checkbox" type="checkbox" id="playerX" onclick="playerXclick()">Computer start</input>
+        <input class="checkbox" type="checkbox" id="playerO" onclick="playerOclick()">You start</input>
       </form>
     </div>
 
     <div class="gameBoard">
       <div class="row">
-        <div id="0" class="bottom right">X</div>
-        <div id="1" class="bottom right">X</div>
-        <div id="2" class="bottom">X</div>
+        <div id="0" class="bottom right square"></div>
+        <div id="1" class="bottom right square"></div>
+        <div id="2" class="bottom square"></div>
       </div>
       
       <div class="row">
-        <div id="3" class="bottom right">X</div>
-        <div id="4" class="bottom right">X</div>
-        <div id="5" class="bottom">X</div>
+        <div id="3" class="bottom right square"></div>
+        <div id="4" class="bottom right square"></div>
+        <div id="5" class="bottom square"></div>
       </div>
 
       <div class="row">
-        <div id="6" class="right">X</div>
-        <div id="7" class="right">X</div>
-        <div id="8" class="square">X</div>
+        <div id="6" class="right square"></div>
+        <div id="7" class="right square"></div>
+        <div id="8" class="square"></div>
       </div>
     </div>
+
+    <h3 id="winner">hey</h3>
     
     <ul id="pokeList">
       <h2>Pokemon List</h2>
       <h3>Here are some pokemon I like</h3>
     </ul>
   </main>
+  <script src="tictactoe.js"></script>
   <script src="test.js"></script>
 </body>
 

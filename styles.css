@@ -10,7 +10,7 @@ body {
 }
 
 .header {
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 h1 {
@@ -18,7 +18,13 @@ h1 {
 }
 
 .controls {
-  margin-top: 40px;
+  margin-top: 20px;
+}
+
+.resetButton {
+  margin-top: 20px;
+  padding: 13px 32px;
+  font-size: 20px;
 }
 
 .checkBox {
@@ -35,13 +41,13 @@ h1 {
 
 .row > div {
   display: inline-block;
-  font-size: 90px;
+  font-size: 100px;
 /*   border: solid 1px white; */
-  width: 150px;
-  height: 150px;
+  width: 180px;
+  height: 180px;
   text-align: center;
   vertical-align: top;
-  line-height: 150px;
+  line-height: 180px;
 }
 
 .right {
