@@ -56,11 +56,10 @@ function playGame(square) {
                 winnerLine.innerText = "You won!";
             }
         } else {
-            winnerLine.innerText = "You drew!";
+            winnerLine.innerText = "It's a draw!";
         }
     }
 }
-
 
 function checkGameOver() {
     checkWinner();
@@ -156,7 +155,7 @@ function evaluate(board) {
     return 0;
 }
 
-function minimax(board, AIPlayer) {
+function minimax(board, AIPlayer, alpha, beta) {
     let score = evaluate(board);
     if (score !== 0) {
         return score;
@@ -170,8 +169,12 @@ function minimax(board, AIPlayer) {
         for (const square in board) {
             if (board[square] === 0) {
                 board[square] = "X";
-                best = Math.max(best, minimax(board, false));
+                best = Math.max(best, minimax(board, false, alpha, beta));
                 board[square] = 0;
+                alpha = Math.max(alpha, best);
+                if (beta <= alpha) {
+                    break;
+                }
             }
         }
         return best;
@@ -180,8 +183,12 @@ function minimax(board, AIPlayer) {
         for (const square in board) {
             if (board[square] === 0) {
                 board[square] = "O";
-                best = Math.min(best, minimax(board, true));
+                best = Math.min(best, minimax(board, true, alpha, beta));
                 board[square] = 0;
+                beta = Math.min(beta, best);
+                if (beta <= alpha) {
+                    break;
+                }
             }
         }
         return best;
@@ -195,7 +202,7 @@ function bestMove() {
     for (const square in gameBoard) {
         if (gameBoard[square] === 0) {
             gameBoard[square] = "X";
-            let moveVal = minimax(gameBoard, false);
+            let moveVal = minimax(gameBoard, false, -1000, 1000);
             gameBoard[square] = 0;
             if (moveVal > bestVal) {
                 bestMove = square;
@@ -219,10 +226,3 @@ function minifax() {
     }
     checkGameOver();
 }
-
-//console.log(Math.max(10, 100));
-/*
- # = id
- . = class
- no symbol = tagname
-*/
