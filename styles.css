@@ -26,7 +26,8 @@ h1 {
   padding: 13px 40px;
   font-size: 20px;
   width: 15%;
-  display: inline-block;
+  white-space: nowrap;
+  text-align: center;
 }
 
 .checkBox {
