@@ -1,3 +1,6 @@
+// Test javascript file for some random javascript code
+// Not relevant to tic tac toe
+
 function test() {
     const pokeList = document.querySelector("#pokeList");
     console.log(pokeList);
