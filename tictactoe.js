@@ -7,6 +7,8 @@ let winner = null;
 
 // The line that displays winner
 const winnerLine = document.querySelector("#winner");
+// html squares
+const squares = document.querySelectorAll(".square");
 
 // Handles the player selection and starts game
 function playerXclick() {
@@ -34,7 +36,6 @@ function resetAll() {
 }
 
 // Adds click events to the squares of the board
-const squares = document.querySelectorAll(".square");
 for (const square of squares) {
     square.addEventListener("click", (event) => {
         // If clicked, the player will play the game
@@ -247,14 +248,10 @@ function bestMove() {
     checkGameOver();
 }
 
-// Function for AI to perform first move - could be randomized
+// Function for AI to perform first move, randomized
 function minifax() {
-    for (const square in gameBoard) {
-        if (gameBoard[square] === 0) {
-            gameBoard[square] = "X";
-            squares[square].innerText = "X";
-            break;
-        }
-    }
+    const random = Math.floor((Math.random() * 9))
+    gameBoard[random] = "X";
+    squares[random].innerText = "X";
     checkGameOver();
 }
